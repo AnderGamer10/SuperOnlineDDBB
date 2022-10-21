@@ -1,0 +1,14 @@
+1 Leche-Kaiku 1.25 0 1.0 12/12/12 LOTE-45 Lacteo
+2 Aguacate 1.05 0 0.2 22/11/12 Colombia FrutaHortaliza
+3 Lecha-Pascual 1.0 25 1.0 14/12/12 LOTE-411 Lacteo
+4 Naranjas-Valencia 1.0 100 1.0 12/12/16 LOTE-456 FrutaHortaliza
+5 Taladro-Bosch 0.5 0 2.7 Herramienta
+6 Armarios-Cocina 88.0 28 54.7 ARMARIOS Otros
+7 Lejia-Patena 1.3 237 1.0 LIMPIEZA Otros
+8 Commodore64-Commodore-Int 600.0 0 0.9 CLASICOS Otros
+9 Limon 5.3 23 7.0 12/12/23 País FrutaHortaliza
+10 Mesa-comedor 580.0 50 30.0 MESAS Otros
+11 Kas-limón 0.32 40 0.4 1/01/14 0 Bebida
+12 Pi�a 1.5 345 0.9 1/05/13 Costa FrutaHortaliza
+13 TV 1010.0 50 45.0 PLASMA-46 Otros
+14 Lima 12.0 12 12.0 Herramienta
