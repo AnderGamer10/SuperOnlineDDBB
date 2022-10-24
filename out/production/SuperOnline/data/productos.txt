@@ -9,6 +9,6 @@
 9 Limon 5.3 23 7.0 12/12/23 País FrutaHortaliza
 10 Mesa-comedor 580.0 50 30.0 MESAS Otros
 11 Kas-limón 0.32 40 0.4 1/01/14 0 Bebida
-12 Pi�a 1.5 345 0.9 1/05/13 Costa FrutaHortaliza
+12 Pina 1.5 345 0.9 1/05/13 Costa FrutaHortaliza
 13 TV 1010.0 50 45.0 PLASMA-46 Otros
 14 Lima 12.0 12 12.0 Herramienta

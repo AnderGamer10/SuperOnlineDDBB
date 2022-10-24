@@ -21,13 +21,13 @@ public class main {
             switch(opcion) {
                 case 0:	System.out.println("Termina la aplicación");
                     System.exit(0);
-                case 1: Inventario.cargarProductos();
-                    pause();
-                    break; // cargar productos
-                case 2: Inventario.mostrarProductos();
+//                case 1: Inventario.cargarProductos();
+//                    pause();
+//                    break; // cargar productos
+                case 1: Inventario.mostrarProductos();
                     pause();
                     break;
-                case 3:     //actualizar la cantidad de un producto en almancÃ©n
+                case 2:     //actualizar la cantidad de un producto en almancÃ©n
                     Producto p;
                     while (opcion!=0) {
                         Inventario.mostrarProductos();
@@ -48,7 +48,7 @@ public class main {
                             pause();
                         }
                     } opcion=1; break;
-                case 4: 	//aÃ±adir un nuevo producto al almancÃ©n
+                case 3: 	//aÃ±adir un nuevo producto al almancÃ©n
                     while (opcion!=0) {
                         mostrarMenuAddNuevoProducto();
                         System.out.println("Opción? ");
@@ -63,10 +63,10 @@ public class main {
                             pause();
                         }
                     } opcion=1; break;
-                case 5: Inventario.mostarProductosEnviables();
-                    pause();
-                    break;
-                case 6: Inventario.guardarProductos();
+//                case 5: Inventario.mostarProductosEnviables();
+//                    pause();
+//                    break;
+                case 4: Inventario.migrarProductos();
                     pause();
                     break;
             }
@@ -77,12 +77,10 @@ public class main {
         System.out.println("====================================================================");
         System.out.println("=            MENU PRINCIPAL - GESTIÓN DE INVENTARIO                =");
         System.out.println("====================================================================");
-        System.out.println("            tecla:1   - Cargar productos");
-        System.out.println("            tecla:2   - Mostrar inventario");
-        System.out.println("            tecla:3   - Actualizar existencias");
-        System.out.println("            tecla:4   - Añadir nuevo producto");
-        System.out.println("            tecla:5   - Mostrar productos enviables");
-        System.out.println("            tecla:6   - Guardar inventario");
+        System.out.println("            tecla:1   - Mostrar inventario");
+        System.out.println("            tecla:2   - Actualizar existencias");
+        System.out.println("            tecla:3   - Añadir nuevo producto");
+        System.out.println("            tecla:4   - Migrar inventario");
         System.out.println("            tecla:0   - Terminar");
         System.out.println("====================================================================");
     }
