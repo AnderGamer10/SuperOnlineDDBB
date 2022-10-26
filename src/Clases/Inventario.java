@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Inventario {
     private static Path archivoProductos = Path.of("src/data/productos.txt");
     private static ArrayList<Producto> listaProductos;
@@ -146,9 +148,7 @@ public class Inventario {
                             throw new RuntimeException(e);
                         }
                         break;
-
                 }
-
             });
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -162,39 +162,109 @@ public class Inventario {
         listaProductos.add(tipo);
     }
     public static void mostrarProductos(){
-        listaProductos.forEach(producto -> {
-            if(producto != null){
-                producto.imprimir();
+        try{
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3306/prueba",
+                    "root", "admin"
+            );
+            try (PreparedStatement statement = connection.prepareStatement("""
+                            SELECT * FROM productos     
+                        """)) {
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    String ID = rs.getString(1);
+                    String Nombre = rs.getString(2);
+                    Double Precio = rs.getDouble(3);
+                    int Cantidad = rs.getInt(4);
+                    Double Peso = rs.getDouble(5);
+                    String FechaDeCad = rs.getString(6);
+                    String Especificacion = rs.getString(7);
+                    String Tipo = rs.getString(8);
+                    System.out.println("ID = " + ID+" Nombre: "+Nombre+" Precio: "+Precio+" Cantidad: "+Cantidad+" Peso: "+Peso+" FechaDeCad: "+FechaDeCad+" Especificacion: "+Especificacion+" Tipo: "+Tipo );
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        });
-
-
-
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
     }
     public static Producto getProducto(int id){
         return listaProductos.get(id-1);
     }
     public static void actualizarCantidad(int codigo, int cant){
-        listaProductos.get(codigo).setCantidad(cant);
+        try{
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3306/prueba",
+                    "root", "admin"
+            );
+            try (PreparedStatement statement = connection.prepareStatement("""
+               UPDATE PRODUCTOS SET Cantidad = ? WHERE ID = ?;
+            """)) {
+                statement.setDouble(1, cant);
+                statement.setInt(2, codigo);
+                statement.executeUpdate();
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
     public static int tamaño(){
         return listaProductos.size();
     }
     public static void mostarProductosEnviables(){
-        listaProductos.forEach(producto -> {
-            if(producto != null &&  producto instanceof Enviable){
-                if(!((Enviable) producto).envioFragil()){
-                    System.out.printf("Id: %d, Nombre: %s, peso: %.1f, IVA (%.2f%s), tarifa de envío: %.2f, PRECIO-TOTAL: %.2f\n", producto.getCodigo(), producto.getNombre(), producto.getPeso(), producto.getIva(), new String(new char[] { 37 }), ((Enviable) producto).tarifaEnvio(), (producto.calcularPrecioIVA() + ((Enviable) producto).tarifaEnvio()));
-                }else{
-                    System.out.printf("Id: %d, Nombre: %s, peso: %.1f, IVA (%.2f%s), tarifa de envío: %.2f, Producto frágil, PRECIO-TOTAL: %.2f\n", producto.getCodigo(), producto.getNombre(), producto.getPeso(), producto.getIva(), new String(new char[] { 37 }), ((Enviable) producto).tarifaEnvio(), (producto.calcularPrecioIVA() + ((Enviable) producto).tarifaEnvio()));
-                }
+        try{
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3306/prueba",
+                    "root", "admin"
+            );
+            try (PreparedStatement statement = connection.prepareStatement("""
+                    SELECT * FROM productos WHERE TIPO='Herramienta' OR TIPO='Otros';
+                """)) {
 
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    String ID = rs.getString(1);
+                    String Nombre = rs.getString(2);
+                    Double Precio = rs.getDouble(3);
+                    int Cantidad = rs.getInt(4);
+                    Double Peso = rs.getDouble(5);
+                    String FechaDeCad = rs.getString(6);
+                    String Especificacion = rs.getString(7);
+                    String Tipo = rs.getString(8);
+                    System.out.println("ID = " + ID+" Nombre: "+Nombre+" Precio: "+Precio+" Cantidad: "+Cantidad+" Peso: "+Peso+" FechaDeCad: "+FechaDeCad+" Especificacion: "+Especificacion+" Tipo: "+Tipo );
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        });
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     public static void eliminarProducto(int id){
-        listaProductos.remove(id);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nombre del producto:");
+        String producto = sc.nextLine();
+        try{
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3306/prueba",
+                    "root", "admin"
+            );
+            try (PreparedStatement statement = connection.prepareStatement("""
+                   DELETE FROM PRODUCTOS WHERE Nombre = ?;
+                """)) {
+                statement.setString(1, producto);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
 
