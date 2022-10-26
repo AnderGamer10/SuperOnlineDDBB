@@ -18,7 +18,7 @@ abstract public class Producto {
         this.nombre = nombre;
     }
     public Producto(Scanner in){
-        codigo = Inventario.tamaño()+1;
+//        codigo = Inventario.tamaño()+1;
         System.out.println("Introduce un nombre:");
         while (true){
             try{

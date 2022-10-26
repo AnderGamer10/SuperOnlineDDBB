@@ -28,45 +28,55 @@ public class main {
                     pause();
                     break;
                 case 2:     //actualizar la cantidad de un producto en almancÃ©n
-                    Producto p;
-                    while (opcion!=0) {
-                        Inventario.mostrarProductos();
-                        System.out.println("0 - Finalizar actualización del inventario");
-                        System.out.println("Elige el nÃºmero del producto a actualizar, tecla:x (/= 0):");
-                        System.out.println("Opción? ");
-                        opcion = leerOpcion(Inventario.tamaño()+1); //se han mostrado todos los articulos (talla) + opcion de salida
-                        if (opcion!=0) {
-                            p = Inventario.getProducto(opcion);  //el mismo producto
-                            System.out.println("Producto elegido: "+p.getNombre()+", existencias: "+p.getCantidad());
-                            System.out.println("Elige la nueva cantidad:");
-                            int cant = in.nextInt();
-                            in.nextLine();
-                            p.setCantidad(cant);   //actualiza el mismo producto del inventario
-                            //NO ES NECESARIA LA ACTUALIZACIÃ“N DESDE INVENTARIO!!
-                            System.out.println("Producto actualizado: "+p.getNombre()+", Nueva cantidad en almacén: "+p.getCantidad());
-                            System.out.println();
-                            pause();
-                        }
-                    } opcion=1; break;
+                    Inventario.mostrarProductos();
+                    Inventario.actualizarCantidad();
+                    pause();
+
+//                    Producto p;
+//                    while (opcion!=0) {
+//                        Inventario.mostrarProductos();
+//                        System.out.println("0 - Finalizar actualización del inventario");
+//                        System.out.println("Elige el nÃºmero del producto a actualizar, tecla:x (/= 0):");
+//                        System.out.println("Opción? ");
+//                        opcion = leerOpcion(Inventario.tamaño()+1); //se han mostrado todos los articulos (talla) + opcion de salida
+//                        if (opcion!=0) {
+//                            p = Inventario.getProducto(opcion);  //el mismo producto
+//                            System.out.println("Producto elegido: "+p.getNombre()+", existencias: "+p.getCantidad());
+//                            System.out.println("Elige la nueva cantidad:");
+//                            int cant = in.nextInt();
+//                            in.nextLine();
+//                            p.setCantidad(cant);   //actualiza el mismo producto del inventario
+//                            //NO ES NECESARIA LA ACTUALIZACIÃ“N DESDE INVENTARIO!!
+//                            System.out.println("Producto actualizado: "+p.getNombre()+", Nueva cantidad en almacén: "+p.getCantidad());
+//                            System.out.println();
+//                            pause();
+//                        }
+//                    }
+                    opcion=1; break;
                 case 3: 	//aÃ±adir un nuevo producto al almancÃ©n
-                    while (opcion!=0) {
-                        mostrarMenuAddNuevoProducto();
-                        System.out.println("Opción? ");
-                        opcion = leerOpcion(6); // 5 clases de productos y salida del menÃº
-                        if (opcion!=0) {
-                            Producto P = nuevoProducto(opcion);
-                            Inventario.addNuevoProducto(P);
-                            System.out.println("Producto añadido, número "+Inventario.tamaño());
-                            Inventario.getProducto(Inventario.tamaño()).imprimir(); //imprime el Ãºltimo producto incluido
-                            System.out.println();
-                            System.out.println();
-                            pause();
-                        }
-                    } opcion=1; break;
-//                case 5: Inventario.mostarProductosEnviables();
-//                    pause();
-//                    break;
-                case 4: Inventario.migrarProductos();
+//                    while (opcion!=0) {
+//                        mostrarMenuAddNuevoProducto();
+//                        System.out.println("Opción? ");
+//                        opcion = leerOpcion(6); // 5 clases de productos y salida del menÃº
+//                        if (opcion!=0) {
+//                            Producto P = nuevoProducto(opcion);
+//                            Inventario.addNuevoProducto(P);
+//                            System.out.println("Producto añadido, número "+Inventario.tamaño());
+////                            Inventario.getProducto(Inventario.tamaño()).imprimir(); //imprime el Ãºltimo producto incluido
+//                            System.out.println();
+//                            System.out.println();
+//                            pause();
+//                        }
+//                    }
+                    opcion=1; break;
+                case 4:
+                    Inventario.eliminarProducto();
+                    pause();
+                    break;
+                case 5: Inventario.mostarProductosEnviables();
+                    pause();
+                    break;
+                case 6: Inventario.migrarProductos();
                     pause();
                     break;
             }
@@ -80,7 +90,9 @@ public class main {
         System.out.println("            tecla:1   - Mostrar inventario");
         System.out.println("            tecla:2   - Actualizar existencias");
         System.out.println("            tecla:3   - Añadir nuevo producto");
-        System.out.println("            tecla:4   - Migrar inventario");
+        System.out.println("            tecla:4   - Eliminar un producto");
+        System.out.println("            tecla:5   - Mostrar productos enviables");
+        System.out.println("            tecla:6   - Migrar inventario");
         System.out.println("            tecla:0   - Terminar");
         System.out.println("====================================================================");
     }

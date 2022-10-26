@@ -155,9 +155,6 @@ public class Inventario {
         }
     }
 
-
-
-
     public static void addNuevoProducto(Producto tipo){
         listaProductos.add(tipo);
     }
@@ -190,20 +187,23 @@ public class Inventario {
         }
 
     }
-    public static Producto getProducto(int id){
-        return listaProductos.get(id-1);
-    }
-    public static void actualizarCantidad(int codigo, int cant){
+
+    public static void actualizarCantidad(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Id del producto a actualizar:");
+        int productoId = sc.nextInt();
+        System.out.println("Cantidad");
+        int productoCant = sc.nextInt();
         try{
             Connection connection = DriverManager.getConnection(
                     "jdbc:mariadb://localhost:3306/prueba",
                     "root", "admin"
             );
             try (PreparedStatement statement = connection.prepareStatement("""
-               UPDATE PRODUCTOS SET Cantidad = ? WHERE ID = ?;
+               UPDATE productos SET Cantidad = ? WHERE Codigo = ?;
             """)) {
-                statement.setDouble(1, cant);
-                statement.setInt(2, codigo);
+                statement.setDouble(1, productoCant);
+                statement.setInt(2, productoId);
                 statement.executeUpdate();
             }catch (Exception e){
                 System.out.println(e);
@@ -212,9 +212,6 @@ public class Inventario {
             System.out.println(e.getMessage());
         }
 
-    }
-    public static int tamaño(){
-        return listaProductos.size();
     }
     public static void mostarProductosEnviables(){
         try{
@@ -245,7 +242,7 @@ public class Inventario {
             System.out.println(e.getMessage());
         }
     }
-    public static void eliminarProducto(int id){
+    public static void eliminarProducto(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Nombre del producto:");
         String producto = sc.nextLine();
@@ -255,7 +252,7 @@ public class Inventario {
                     "root", "admin"
             );
             try (PreparedStatement statement = connection.prepareStatement("""
-                   DELETE FROM PRODUCTOS WHERE Nombre = ?;
+                   DELETE FROM productos WHERE Nombre = ?;
                 """)) {
                 statement.setString(1, producto);
                 statement.executeUpdate();
