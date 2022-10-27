@@ -23,57 +23,53 @@ public class Inventario {
         }
         return instance;
     }
+
     public static void cargarProductos(){
-//        System.out.println("[[Cargando productos...]]");
-//        File archivo = null;
-//        FileReader fr = null;
-//        BufferedReader br = null;
-//        try {
-//            archivo = new File(archivoProductos.toUri());
-//            fr = new FileReader (archivo);
-//            br = new BufferedReader(fr);
-//
-//            String linea;
-//            while((linea=br.readLine())!=null){
-//                System.out.println(linea);
-//                String[] textoSeparado = linea.split(" ");
-//                switch (linea.substring(linea.lastIndexOf(" ")+1)){
-//                    case "Lacteo":
-//                        addNuevoProducto(new Lacteo( Integer.parseInt(textoSeparado[0]),  textoSeparado[1],  Double.parseDouble(textoSeparado[2]),  Double.parseDouble(textoSeparado[4]),  Integer.parseInt(textoSeparado[3]) ,textoSeparado[5] ,textoSeparado[6]));
-//                        break;
-//                    case "FrutaHortaliza":
-//                        addNuevoProducto(new FrutaHortaliza( Integer.parseInt(textoSeparado[0]),  textoSeparado[1],  Double.parseDouble(textoSeparado[2]),  Double.parseDouble(textoSeparado[4]),  Integer.parseInt(textoSeparado[3]) ,textoSeparado[5] ,textoSeparado[6]));
-//                        break;
-//                    case "Bebida":
-//                        addNuevoProducto(new Bebida( Integer.parseInt(textoSeparado[0]),  textoSeparado[1],  Double.parseDouble(textoSeparado[2]),  Double.parseDouble(textoSeparado[4]),  Integer.parseInt(textoSeparado[3]) ,textoSeparado[5] ,textoSeparado[6]));
-//                        break;
-//                    case "Herramienta":
-//                        addNuevoProducto(new Herramienta( Integer.parseInt(textoSeparado[0]),  textoSeparado[1],  Double.parseDouble(textoSeparado[2]),  Double.parseDouble(textoSeparado[4]),  Integer.parseInt(textoSeparado[3])));
-//                        break;
-//                    case "Otros":
-//                        addNuevoProducto(new Otros( Integer.parseInt(textoSeparado[0]),  textoSeparado[1],  Double.parseDouble(textoSeparado[2]),  Double.parseDouble(textoSeparado[4]),  Integer.parseInt(textoSeparado[3]) , textoSeparado[5]));
-//                        break;
-//                }
-//            }
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//        }finally{
-//            try{
-//                if( null != fr ){
-//                    fr.close();
-//                }
-//            }catch (Exception e2){
-//                e2.printStackTrace();
-//            }
-//        }
-//        System.out.println("[[Productos cargados en inventario!]]");
+        System.out.println("[[Cargando productos...]]");
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            archivo = new File(archivoProductos.toUri());
+            fr = new FileReader (archivo);
+            br = new BufferedReader(fr);
 
-
-
+            String linea;
+            while((linea=br.readLine())!=null){
+                System.out.println(linea);
+                String[] textoSeparado = linea.split(" ");
+                switch (linea.substring(linea.lastIndexOf(" ")+1)){
+                    case "Lacteo":
+                        addNuevoProducto(new Lacteo( Integer.parseInt(textoSeparado[0]),  textoSeparado[1],  Double.parseDouble(textoSeparado[2]),  Double.parseDouble(textoSeparado[4]),  Integer.parseInt(textoSeparado[3]) ,textoSeparado[5] ,textoSeparado[6]));
+                        break;
+                    case "FrutaHortaliza":
+                        addNuevoProducto(new FrutaHortaliza( Integer.parseInt(textoSeparado[0]),  textoSeparado[1],  Double.parseDouble(textoSeparado[2]),  Double.parseDouble(textoSeparado[4]),  Integer.parseInt(textoSeparado[3]) ,textoSeparado[5] ,textoSeparado[6]));
+                        break;
+                    case "Bebida":
+                        addNuevoProducto(new Bebida( Integer.parseInt(textoSeparado[0]),  textoSeparado[1],  Double.parseDouble(textoSeparado[2]),  Double.parseDouble(textoSeparado[4]),  Integer.parseInt(textoSeparado[3]) ,textoSeparado[5] ,textoSeparado[6]));
+                        break;
+                    case "Herramienta":
+                        addNuevoProducto(new Herramienta( Integer.parseInt(textoSeparado[0]),  textoSeparado[1],  Double.parseDouble(textoSeparado[2]),  Double.parseDouble(textoSeparado[4]),  Integer.parseInt(textoSeparado[3])));
+                        break;
+                    case "Otros":
+                        addNuevoProducto(new Otros( Integer.parseInt(textoSeparado[0]),  textoSeparado[1],  Double.parseDouble(textoSeparado[2]),  Double.parseDouble(textoSeparado[4]),  Integer.parseInt(textoSeparado[3]) , textoSeparado[5]));
+                        break;
+                }
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if( null != fr ){
+                    fr.close();
+                }
+            }catch (Exception e2){
+                e2.printStackTrace();
+            }
+        }
+        System.out.println("[[Productos cargados en inventario!]]");
     }
-
-
 
     public static void migrarProductos(){
         try{
@@ -96,7 +92,7 @@ public class Inventario {
                     """)) {
                 statement.executeUpdate();
             }
-
+            cargarProductos();
             listaProductos.forEach(pr -> {
                 String[] arDatos = pr.volcar().split(" ");
                 switch (arDatos[arDatos.length-1]){
@@ -155,9 +151,7 @@ public class Inventario {
         }
     }
 
-    public static void addNuevoProducto(Producto tipo){
-        listaProductos.add(tipo);
-    }
+
     public static void mostrarProductos(){
         try{
             Connection connection = DriverManager.getConnection(
@@ -211,8 +205,8 @@ public class Inventario {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-
     }
+
     public static void mostarProductosEnviables(){
         try{
             Connection connection = DriverManager.getConnection(
@@ -225,15 +219,15 @@ public class Inventario {
 
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
-                    String ID = rs.getString(1);
-                    String Nombre = rs.getString(2);
-                    Double Precio = rs.getDouble(3);
-                    int Cantidad = rs.getInt(4);
-                    Double Peso = rs.getDouble(5);
-                    String FechaDeCad = rs.getString(6);
-                    String Especificacion = rs.getString(7);
-                    String Tipo = rs.getString(8);
-                    System.out.println("ID = " + ID+" Nombre: "+Nombre+" Precio: "+Precio+" Cantidad: "+Cantidad+" Peso: "+Peso+" FechaDeCad: "+FechaDeCad+" Especificacion: "+Especificacion+" Tipo: "+Tipo );
+                    String id = rs.getString(1);
+                    String nombre = rs.getString(2);
+                    Double precio = rs.getDouble(3);
+                    int cantidad = rs.getInt(4);
+                    Double peso = rs.getDouble(5);
+                    String fechaCad = rs.getString(6);
+                    String especificacion = rs.getString(7);
+                    String tipo = rs.getString(8);
+                    System.out.println("ID = " + id +" Nombre: " + nombre + " Precio: " + precio + " Cantidad: " + cantidad + " Peso: " + peso + " FechaDeCad: " + fechaCad + " Especificacion: " + especificacion + " Tipo: " + tipo);
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -242,6 +236,7 @@ public class Inventario {
             System.out.println(e.getMessage());
         }
     }
+
     public static void eliminarProducto(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Nombre del producto:");
@@ -258,6 +253,69 @@ public class Inventario {
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void addNuevoProducto(Producto tipo){
+        try{
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3306/prueba",
+                    "root", "admin"
+            );
+            System.out.println(tipo.volcar());
+            try  {
+                String[] array = tipo.volcar().split(" ");
+                switch (array[array.length-1]){
+                    case "Herramienta":
+                        try (PreparedStatement statement = connection.prepareStatement("""
+                                INSERT INTO productos (Nombre, Precio, Cantidad, Peso, Tipo) VALUES (?, ?, ?, ?, ?);
+                                """)) {
+                            statement.setString(1, array[1]);
+                            statement.setDouble(2, Double.parseDouble(array[2]));
+                            statement.setInt(3, Integer.parseInt(array[3]));
+                            statement.setDouble(4, Double.parseDouble(array[4]));
+                            statement.setString(5, array[5]);
+                            statement.executeUpdate();
+                        }catch (Exception e){
+                            System.out.println(e);
+                        }
+                        break;
+                    case "Otros":
+                        try (PreparedStatement statement = connection.prepareStatement("""
+                                INSERT INTO productos (Nombre, Precio, Cantidad, Peso, Especificacion, Tipo) VALUES (?, ?, ?, ?, ?, ?);
+                                """)) {
+                            statement.setString(1, array[1]);
+                            statement.setDouble(2, Double.parseDouble(array[2]));
+                            statement.setInt(3, Integer.parseInt(array[3]));
+                            statement.setDouble(4, Double.parseDouble(array[4]));
+                            statement.setString(5, array[5]);
+                            statement.setString(6, array[6]);
+                            statement.executeUpdate();
+                        }catch (Exception e){
+                            System.out.println(e);
+                        }
+                        break;
+                    default:
+                        try (PreparedStatement statement = connection.prepareStatement("""
+                                INSERT INTO productos (Nombre, Precio, Cantidad, Peso, FechaCad, Especificacion, Tipo) VALUES (?, ?, ?, ?, ?, ?, ?);
+                                """)) {
+                            statement.setString(1, array[1]);
+                            statement.setDouble(2, Double.parseDouble(array[2]));
+                            statement.setInt(3, Integer.parseInt(array[3]));
+                            statement.setDouble(4, Double.parseDouble(array[4]));
+                            statement.setString(5, array[5]);
+                            statement.setString(6, array[6]);
+                            statement.setString(7, array[7]);
+                            statement.executeUpdate();
+                        }catch (Exception e){
+                            System.out.println(e);
+                        }
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
             }
         }catch (Exception e){
             System.out.println(e.getMessage());

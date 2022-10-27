@@ -53,21 +53,20 @@ public class main {
 //                        }
 //                    }
                     opcion=1; break;
-                case 3: 	//aÃ±adir un nuevo producto al almancÃ©n
-//                    while (opcion!=0) {
-//                        mostrarMenuAddNuevoProducto();
-//                        System.out.println("Opción? ");
-//                        opcion = leerOpcion(6); // 5 clases de productos y salida del menÃº
-//                        if (opcion!=0) {
-//                            Producto P = nuevoProducto(opcion);
-//                            Inventario.addNuevoProducto(P);
-//                            System.out.println("Producto añadido, número "+Inventario.tamaño());
-////                            Inventario.getProducto(Inventario.tamaño()).imprimir(); //imprime el Ãºltimo producto incluido
-//                            System.out.println();
-//                            System.out.println();
-//                            pause();
-//                        }
-//                    }
+                case 3:
+                    //aÃ±adir un nuevo producto al almancÃ©n
+                    while (opcion!=0) {
+                        mostrarMenuAddNuevoProducto();
+                        System.out.println("Opción? ");
+                        opcion = leerOpcion(6); // 5 clases de productos y salida del menÃº
+                        if (opcion!=0) {
+                            Producto P = nuevoProducto(opcion);
+                            Inventario.addNuevoProducto(P);
+                            System.out.println();
+                            System.out.println();
+                            pause();
+                        }
+                    }
                     opcion=1; break;
                 case 4:
                     Inventario.eliminarProducto();
@@ -76,7 +75,8 @@ public class main {
                 case 5: Inventario.mostarProductosEnviables();
                     pause();
                     break;
-                case 6: Inventario.migrarProductos();
+                case 6:
+                    Inventario.migrarProductos();
                     pause();
                     break;
             }
